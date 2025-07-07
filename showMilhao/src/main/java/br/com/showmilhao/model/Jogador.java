@@ -72,6 +72,14 @@ public class Jogador {
 		Jogador other = (Jogador) obj;
 		return Objects.equals(id, other.id);
 	}
+
+
+
+	@Override
+	public String toString() {
+		return "Jogador [id=" + id + ", nome=" + nome + ", pontuacao=" + pontuacao + ", linha=" + linha + "]";
+	}
+	
 	
 	
 
