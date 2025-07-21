@@ -11,6 +11,9 @@ import br.com.showmilhao.util.LogUtil;
 
 public class PerguntaDao {
 	private Connection connection;
+	private static final String QUERY_INSERIR = "INSERT INTO pergunta(id,nivel,enunciado,alternativa1,alternativa2,alternativa3,resposta) VALUES($next_id,?,?,?,?,?,?)";
+	private static final String ok = "processo concluido!";
+	private static int message_Type = JOptionPane.INFORMATION_MESSAGE;
 	
 	public PerguntaDao() {
 		connection = ConnectionFactory.getConexao();
@@ -18,8 +21,8 @@ public class PerguntaDao {
 	
 	public void adicionar(Pergunta pergunta) {
 		try {
-			String sql = "INSERT INTO pergunta(id,nivel,enunciado,alternativa1,alternativa2,alternativa3,resposta) VALUES($next_id,?,?,?,?,?,?) ";
-			try(PreparedStatement statement = connection.prepareStatement(sql)){
+		
+			try(PreparedStatement statement = connection.prepareStatement(QUERY_INSERIR)){
 				statement.setString(2, pergunta.getNivel());
 				statement.setString(3, pergunta.getEnunciado());
 				statement.setString(4,pergunta.getAlternativa1());
@@ -29,7 +32,7 @@ public class PerguntaDao {
 				statement.executeUpdate();
 				connection.commit();	
 			}
-			JOptionPane.showMessageDialog(null,"Pergunta Adicionada com Sucesso!!!!","processo concluido!",JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(null,"Pergunta Adicionada com Sucesso!!!!",ok,message_Type);
 			
 		} catch (Exception e) {
 			LogUtil.getLogger(PerguntaDao.class).error(e.getCause().toString());
