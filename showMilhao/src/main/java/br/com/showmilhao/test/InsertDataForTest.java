@@ -8,7 +8,7 @@ public class InsertDataForTest {
 	private static JogadorDao dao = new JogadorDao();
 	
 	public static void main(String[] args) {
-		Jogador jogador = new Jogador("Ana Maria1",800);
+		Jogador jogador = new Jogador("Helena paula",750);
 		
 		
 		LogUtil.getLogger(InsertDataForTest.class).info(dao.adicionar(jogador));

@@ -16,7 +16,7 @@ public class ListarDataForTest {
 		for (Jogador jogador : jogadores) {
 			LogUtil.getLogger(ListarDataForTest.class).info(jogador);
 		}
-		System.out.println();
+		System.out.println(); 
 		//lista.forEach(System.out::println);
 		lista.forEach(x-> LogUtil.getLogger(ListarDataForTest.class).info(x));
 
