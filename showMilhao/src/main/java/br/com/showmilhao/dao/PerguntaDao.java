@@ -2,6 +2,10 @@ package br.com.showmilhao.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 import javax.swing.JOptionPane;
 
@@ -78,6 +82,37 @@ public class PerguntaDao {
 		}catch (Exception e) {
 			LogUtil.getLogger(PerguntaDao.class).error(e.getCause().toString());
 		}
+	}
+	
+	private List<Pergunta> buscar(String sql,String nivel){
+		List<Pergunta> perguntas = new ArrayList<Pergunta>();
+		
+		try{
+			try(PreparedStatement statement = connection.prepareStatement(sql)){
+				if(Objects.nonNull(nivel)) {
+					statement.setString(1, nivel);
+				}
+				try (ResultSet resultado = statement.executeQuery()){
+					while(resultado.next()) {
+						Pergunta pergunta = new Pergunta();
+						pergunta.setId(resultado.getInt("id"));
+						pergunta.setNivel(resultado.getString("nivel"));
+						pergunta.setEnunciado(resultado.getString("enunciado"));
+						pergunta.setAlternativa1(resultado.getString("alternativa1"));
+						pergunta.setAlternativa2(resultado.getString("alternativa2"));
+						pergunta.setAlternativa3(resultado.getString("alternativa3"));
+						pergunta.setResposta(resultado.getString("resposta"));
+						
+						perguntas.add(pergunta);
+					}
+					
+				}
+			}
+			
+		}catch (Exception e) {
+			LogUtil.getLogger(PerguntaDao.class).error(e.getCause().toString());
+		}
+		return perguntas;
 	}
 
 }
